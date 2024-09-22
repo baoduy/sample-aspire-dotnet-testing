@@ -32,19 +32,10 @@ stages:
         script: 'dotnet workload install aspire'
 
     - task: DotNetCoreCLI@2
-      displayName: Restore
-      inputs:
-        command: 'restore'
-        projects: '$(RestoreBuildProjects)'
-        restoreArguments: '--interactive'
-        feedsToUse: 'config'
-        nugetConfigPath: 'nuget.config'
-
-    - task: DotNetCoreCLI@2
       displayName: Build
       inputs:
         projects: $(RestoreBuildProjects)
-        arguments: -c $(BuildConfiguration) --no-restore
+        arguments: -c $(BuildConfiguration)
 
     - task: DotNetCoreCLI@2
       displayName: Test
