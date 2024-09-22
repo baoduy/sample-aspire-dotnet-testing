@@ -5,13 +5,13 @@
             <DataCollector friendlyName="XPlat Code Coverage">
                 <Configuration>
                     <Include>
-                        [WX*]*
+                        [Api*]*
                     </Include>
                     <Exclude>
 
                     </Exclude>
-            </Configuration>
-        </DataCollector>
-    </DataCollectors>
-</DataCollectionRunSettings>
+                </Configuration>
+            </DataCollector>
+        </DataCollectors>
+    </DataCollectionRunSettings>
 </RunSettings>
