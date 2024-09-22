@@ -1,4 +1,4 @@
-# Sample Aspire .NET Unit Tests
+# Sample using Aspire .NET For Integration Tests Automation
 
 This repository demonstrates how to set up a .NET project with MediatR, Entity Framework Core, PostgreSQL, and xUnit for unit testing. Follow the steps below to get started.
 
