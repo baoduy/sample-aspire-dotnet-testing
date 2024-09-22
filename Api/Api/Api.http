@@ -1,0 +1,33 @@
+@Api_HostAddress = http://localhost:5105
+
+GET {{Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+POST {{Api_HostAddress}}/products
+Content-Type: application/json
+{
+  "name": "Sample Product",
+  "price": 19.99
+}
+
+###
+
+GET {{Api_HostAddress}}/products/1
+Accept: application/json
+
+###
+
+PUT {{Api_HostAddress}}/products/1
+Content-Type: application/json
+{
+  "id": 1,
+  "name": "Updated Product",
+  "price": 29.99
+}
+
+###
+
+DELETE {{Api_HostAddress}}/products/1
+Accept: application/json
