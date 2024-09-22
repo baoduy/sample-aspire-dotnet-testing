@@ -1,0 +1,34 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.8 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.8">
+  <diagram name="Page-1" id="lPCHbGSc73fAoeuRLA7T">
+    <mxGraphModel dx="1914" dy="1450" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ngI4hIsHNH8qkKIlw3m5-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=3;" edge="1" parent="1" source="ngI4hIsHNH8qkKIlw3m5-2" target="ngI4hIsHNH8qkKIlw3m5-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ngI4hIsHNH8qkKIlw3m5-2" value="Api" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=none;strokeWidth=1;fillColor=#0085FC;fontColor=#FFFFFF;whiteSpace=wrap;align=center;verticalAlign=middle;spacingLeft=0;fontStyle=0;fontSize=16;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="190" y="290" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ngI4hIsHNH8qkKIlw3m5-3" value="ServiceDefault" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=none;strokeWidth=1;fillColor=#33A64C;fontColor=#FFFFFF;whiteSpace=wrap;align=center;verticalAlign=middle;spacingLeft=0;fontStyle=0;fontSize=16;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="430" y="290" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ngI4hIsHNH8qkKIlw3m5-4" value="Aspire.Host" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=none;strokeWidth=1;fillColor=#DB2843;fontColor=#FFFFFF;whiteSpace=wrap;align=center;verticalAlign=middle;spacingLeft=0;fontStyle=0;fontSize=16;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="190" y="440" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ngI4hIsHNH8qkKIlw3m5-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=3;" edge="1" parent="1" source="ngI4hIsHNH8qkKIlw3m5-5" target="ngI4hIsHNH8qkKIlw3m5-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ngI4hIsHNH8qkKIlw3m5-5" value="Aspire.Tests" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=none;strokeWidth=1;fillColor=#FFBC26;fontColor=#FFFFFF;whiteSpace=wrap;align=center;verticalAlign=middle;spacingLeft=0;fontStyle=0;fontSize=16;spacing=5;" vertex="1" parent="1">
+          <mxGeometry x="430" y="440" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ngI4hIsHNH8qkKIlw3m5-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0.967;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=3;fillColor=#e1d5e7;strokeColor=#9673a6;" edge="1" parent="1" source="ngI4hIsHNH8qkKIlw3m5-4" target="ngI4hIsHNH8qkKIlw3m5-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ngI4hIsHNH8qkKIlw3m5-9" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.007;entryY=0.933;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=3;fillColor=#e1d5e7;strokeColor=#9673a6;" edge="1" parent="1" source="ngI4hIsHNH8qkKIlw3m5-5" target="ngI4hIsHNH8qkKIlw3m5-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

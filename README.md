@@ -17,6 +17,10 @@ The project is structured as follows:
 - `Aspire.ServiceDefaults`: Contains shared services and configurations.
 - `Aspire.Tests`: Contains the unit tests for the API.
 
+## Dependency Graph
+
+![DependencyGraph](/ProjectDependency.png)
+
 ## Setup Instructions
 
 ### 1. Clone the Repository
