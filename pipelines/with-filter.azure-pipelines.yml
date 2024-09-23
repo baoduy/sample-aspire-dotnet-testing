@@ -1,0 +1,78 @@
+# with-filter.azure-pipelines.yml
+#
+# This Azure Pipeline configuration file defines the CI/CD pipeline for building and testing the project.
+# It is triggered by changes to the 'main' and 'dev' branches.
+#
+# The pipeline consists of the following stages:
+# - Build: Builds the project and runs tests with code coverage.
+#
+# Variables:
+# - BUILDCONFIGURATION: The build configuration, set to 'Release'.
+# - RestoreBuildProjects: Pattern to match project files for restore and build.
+# - TestProjects: Pattern to match test project files.
+# - vmImageName: The name of the VM image to use for the agent, set to 'ubuntu-latest'.
+#
+# Resources:
+# - repo: self: Refers to the repository where the pipeline is defined.
+#
+# Stages:
+# - Build: Builds the project and runs tests.
+#   - Jobs:
+#     - Build: The job that performs the build and test steps.
+#       - Pool: Specifies the VM image to use.
+#       - Steps:
+#         - Bash@3: Installs the necessary .NET workload.
+#         - DotNetCoreCLI@2: Builds the project.
+#         - DotNetCoreCLI@2: Runs the tests and collects code coverage.
+#         - PublishCodeCoverageResults@1: Publishes the code coverage results.
+
+trigger:
+  - main
+  - dev
+
+resources:
+  - repo: self
+
+variables:
+  BUILDCONFIGURATION: Release
+  RestoreBuildProjects: "**/*.csproj"
+  TestProjects: "**/*[Tt]ests/*.csproj"
+
+  # Agent VM image name
+  vmImageName: "ubuntu-latest"
+
+stages:
+  - stage: Build
+    displayName: Build and push stage
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          # Install the necessary .NET workload
+          - task: Bash@3
+            inputs:
+              targetType: "inline"
+              script: "dotnet workload install aspire"
+
+          # Build the project
+          - task: DotNetCoreCLI@2
+            displayName: Build
+            inputs:
+              projects: $(RestoreBuildProjects)
+              arguments: -c $(BuildConfiguration)
+
+          # Run tests and collect code coverage
+          - task: DotNetCoreCLI@2
+            displayName: Test with coverage filtering
+            inputs:
+              command: "test"
+              projects: "$(TestProjects)"
+              arguments: '--configuration $(BuildConfiguration) --settings coverage.runsettings --collect "XPlat Code Coverage"'
+
+          # Publish code coverage results
+          - task: PublishCodeCoverageResults@1
+            inputs:
+              codeCoverageTool: "cobertura"
+              summaryFileLocation: "$(Agent.TempDirectory)/**/coverage.cobertura.xml"

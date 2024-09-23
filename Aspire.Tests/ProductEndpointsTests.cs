@@ -6,11 +6,25 @@ using Xunit.Abstractions;
 
 namespace Aspire.Tests;
 
+/**
+ * The ProductEndpointsTests class contains integration tests for the product endpoints.
+ * It uses the ApiFixture to set up the test environment and HttpClient to make requests to the API.
+ *
+ * This class is responsible for:
+ * - Testing the creation of a product.
+ * - Testing the retrieval of a product.
+ * - Testing the update of a product.
+ * - Testing the deletion of a product.
+ */
 public class ProductEndpointsTests(ApiFixture fixture, ITestOutputHelper output) : IClassFixture<ApiFixture>
 {
     private readonly HttpClient _client = fixture.CreateClient();
 
-     [Fact]
+    /**
+     * Tests the creation of a product.
+     * Ensures that the product is created successfully and returns a valid product ID.
+     */
+    [Fact]
     public async Task CreateProduct_ReturnsCreatedProduct()
     {
         // Arrange
@@ -24,6 +38,10 @@ public class ProductEndpointsTests(ApiFixture fixture, ITestOutputHelper output)
         Assert.True(productId > 0);
     }
 
+    /**
+     * Tests the retrieval of a product.
+     * Ensures that the product is retrieved successfully and matches the expected values.
+     */
     [Fact]
     public async Task GetProduct_ReturnsProduct()
     {
@@ -43,6 +61,10 @@ public class ProductEndpointsTests(ApiFixture fixture, ITestOutputHelper output)
         Assert.Equal(10.99m, product.Price);
     }
 
+    /**
+     * Tests the update of a product.
+     * Ensures that the product is updated successfully and returns a NoContent status.
+     */
     [Fact]
     public async Task UpdateProduct_ReturnsNoContent()
     {
@@ -61,6 +83,10 @@ public class ProductEndpointsTests(ApiFixture fixture, ITestOutputHelper output)
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
     }
 
+    /**
+     * Tests the deletion of a product.
+     * Ensures that the product is deleted successfully and returns a NoContent status.
+     */
     [Fact]
     public async Task DeleteProduct_ReturnsNoContent()
     {

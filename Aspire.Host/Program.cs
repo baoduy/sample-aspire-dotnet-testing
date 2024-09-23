@@ -7,6 +7,5 @@ var db = postgres.AddDatabase("Db");
 //Internal API
 builder.AddProject<Projects.Api>("api")
     .WithReference(db);
-    //.WithHttpEndpoint(5105);
 
 builder.Build().Run();

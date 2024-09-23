@@ -6,13 +6,31 @@ using Microsoft.Extensions.Hosting;
 
 namespace Aspire.Tests.Fixtures;
 
+/**
+ * ApiFixture is a test fixture class that sets up the necessary environment for integration tests.
+ * It extends WebApplicationFactory<Api.Program> and implements IAsyncLifetime to manage the lifecycle
+ * of the test environment.
+ *
+ * This class is responsible for:
+ * - Setting up a PostgreSQL server resource.
+ * - Configuring the host with the necessary connection strings.
+ * - Ensuring the database is created before tests run.
+ * - Starting and stopping the application host.
+ * - Cleaning up resources after tests are completed.
+ *
+ * Usage:
+ * - This class is used as a fixture in xUnit tests to provide a consistent and isolated test environment.
+ */
 public sealed class ApiFixture : WebApplicationFactory<Api.Program>, IAsyncLifetime
 {
     private readonly IHost _app;
-
     private readonly IResourceBuilder<PostgresServerResource> _postgres;
     private string? _postgresConnectionString;
 
+    /**
+     * Constructor for ApiFixture.
+     * Initializes the DistributedApplicationOptions and sets up the PostgreSQL server resource.
+     */
     public ApiFixture()
     {
         var options = new DistributedApplicationOptions
@@ -26,6 +44,14 @@ public sealed class ApiFixture : WebApplicationFactory<Api.Program>, IAsyncLifet
         _app = builder.Build();
     }
 
+    /**
+     * Creates and configures the host for the application.
+     * Adds the PostgreSQL connection string to the host configuration.
+     * Ensures the database is created before returning the host.
+     *
+     * @param builder The IHostBuilder instance.
+     * @return The configured IHost instance.
+     */
     protected override IHost CreateHost(IHostBuilder builder)
     {
         builder.ConfigureHostConfiguration(config =>
@@ -41,6 +67,10 @@ public sealed class ApiFixture : WebApplicationFactory<Api.Program>, IAsyncLifet
         return host;
     }
 
+    /**
+     * Disposes the resources used by the fixture asynchronously.
+     * Stops the application host and disposes of it.
+     */
     public new async Task DisposeAsync()
     {
         await base.DisposeAsync();
@@ -55,6 +85,11 @@ public sealed class ApiFixture : WebApplicationFactory<Api.Program>, IAsyncLifet
         }
     }
 
+    /**
+     * Initializes the fixture asynchronously.
+     * Starts the application host and waits for the PostgreSQL resource to be in the running state.
+     * Retrieves the PostgreSQL connection string.
+     */
     public async Task InitializeAsync()
     {
         var resourceNotificationService = _app.Services.GetRequiredService<ResourceNotificationService>();
