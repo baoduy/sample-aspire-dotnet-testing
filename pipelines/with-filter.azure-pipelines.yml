@@ -23,7 +23,7 @@
 #       - Steps:
 #         - Bash@3: Installs the necessary .NET workload.
 #         - DotNetCoreCLI@2: Builds the project.
-#         - DotNetCoreCLI@2: Runs the tests and collects code coverage.
+#         - DotNetCoreCLI@2: Runs the tests and collects code coverage with filtering.
 #         - PublishCodeCoverageResults@1: Publishes the code coverage results.
 
 trigger:
