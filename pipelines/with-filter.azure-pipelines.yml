@@ -78,7 +78,6 @@ stages:
               arguments: '--configuration $(BuildConfiguration) --settings coverage.runsettings --collect "XPlat Code Coverage"'
 
           # Publish code coverage results
-          - task: PublishCodeCoverageResults@1
+          - task: PublishCodeCoverageResults@2
             inputs:
-              codeCoverageTool: "cobertura"
               summaryFileLocation: "$(Agent.TempDirectory)/**/coverage.cobertura.xml"
