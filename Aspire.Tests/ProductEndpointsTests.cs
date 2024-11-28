@@ -28,7 +28,7 @@ public class ProductEndpointsTests(ApiFixture fixture, ITestOutputHelper output)
     public async Task CreateProduct_ReturnsCreatedProduct()
     {
         // Arrange
-        var command = new CreateProduct.Command { Name = "Test Product", Price = 10.99m };
+        var command = new CreateProductCommand { Name = "Test Product", Price = 10.99m };
         // Act
         var response = await _client.PostAsJsonAsync("/products", command);
 
@@ -46,7 +46,7 @@ public class ProductEndpointsTests(ApiFixture fixture, ITestOutputHelper output)
     public async Task GetProduct_ReturnsProduct()
     {
         // Arrange
-        var command = new CreateProduct.Command { Name = "Test Product", Price = 10.99m };
+        var command = new CreateProductCommand { Name = "Test Product", Price = 10.99m };
         var createResponse = await _client.PostAsJsonAsync("/products", command);
         var productId = await createResponse.Content.ReadFromJsonAsync<int>();
 
@@ -69,11 +69,11 @@ public class ProductEndpointsTests(ApiFixture fixture, ITestOutputHelper output)
     public async Task UpdateProduct_ReturnsNoContent()
     {
         // Arrange
-        var command = new CreateProduct.Command { Name = "Test Product", Price = 10.99m };
+        var command = new CreateProductCommand { Name = "Test Product", Price = 10.99m };
         var createResponse = await _client.PostAsJsonAsync("/products", command);
         var productId = await createResponse.Content.ReadFromJsonAsync<int>();
 
-        var updateCommand = new UpdateProduct.Command { Id = productId, Name = "Updated Product", Price = 20.99m };
+        var updateCommand = new UpdateProductCommand { Id = productId, Name = "Updated Product", Price = 20.99m };
 
         // Act
         var response = await _client.PutAsJsonAsync($"/products/{productId}", updateCommand);
@@ -91,7 +91,7 @@ public class ProductEndpointsTests(ApiFixture fixture, ITestOutputHelper output)
     public async Task DeleteProduct_ReturnsNoContent()
     {
         // Arrange
-        var command = new CreateProduct.Command { Name = "Test Product", Price = 10.99m };
+        var command = new CreateProductCommand { Name = "Test Product", Price = 10.99m };
         var createResponse = await _client.PostAsJsonAsync("/products", command);
         var productId = await createResponse.Content.ReadFromJsonAsync<int>();
 

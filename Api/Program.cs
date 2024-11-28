@@ -1,20 +1,24 @@
-using System.Reflection;
 using Api.Configs;
-using Api.Data;
-using Api.Endpoints;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//TODO: Add feature management and allow to on/off Db migration on production.
+builder.Services.AddHostedService<DbMigrationJob>();
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("Db")));
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Db"));
+    //NOTE: Workaround to ignore the error due to the bug of .NET9 here https://github.com/dotnet/efcore/issues/35110;
+    options.ConfigureWarnings(x => x.Ignore(RelationalEventId.PendingModelChangesWarning));
+});
 
+//Swagger config
+builder.Services.AddOpenApi();
+
+//MediatR
 builder.Services.AddMediatR(op => op.RegisterServicesFromAssembly(typeof(Program).Assembly));
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options => options.CustomSchemaIds(t =>
-    t.GetCustomAttributes<SwaggerSchemaIdAttribute>().SingleOrDefault()?.SchemaId ??
-    SwashbuckleHelpers.DefaultSchemaIdSelector(t)));
+
 //Aspire Support
 builder.AddServiceDefaults();
 
@@ -23,21 +27,14 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 //Aspire Support
 app.MapDefaultEndpoints();
-
-app.UseHttpsRedirection();
 app.MapProductEndpoints();
 await app.RunAsync();
 
 //This Startup endpoint for Unit Tests
-namespace Api
-{
-    public class Program
-    {
-    }
-}
+namespace Api { public class Program; }

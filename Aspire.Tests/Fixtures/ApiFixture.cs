@@ -1,4 +1,3 @@
-using Aspire.Hosting;
 using Aspire.Tests.Extensions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +22,7 @@ namespace Aspire.Tests.Fixtures;
  */
 public sealed class ApiFixture : WebApplicationFactory<Api.Program>, IAsyncLifetime
 {
-    private readonly IHost _app;
+    private readonly DistributedApplication _app;
     private readonly IResourceBuilder<PostgresServerResource> _postgres;
     private string? _postgresConnectionString;
 
@@ -59,7 +58,7 @@ public sealed class ApiFixture : WebApplicationFactory<Api.Program>, IAsyncLifet
             config.AddInMemoryCollection(new Dictionary<string, string?>
             {
                 { "ConnectionStrings:Db", _postgresConnectionString },
-            }!);
+            });
         });
 
         var host = base.CreateHost(builder);
@@ -75,27 +74,22 @@ public sealed class ApiFixture : WebApplicationFactory<Api.Program>, IAsyncLifet
     {
         await base.DisposeAsync();
         await _app.StopAsync();
-        if (_app is IAsyncDisposable asyncDisposable)
-        {
-            await asyncDisposable.DisposeAsync().ConfigureAwait(false);
-        }
-        else
-        {
-            _app.Dispose();
-        }
+        await _app.DisposeAsync();
     }
 
     /**
      * Initializes the fixture asynchronously.
      * Starts the application host and waits for the PostgreSQL resource to be in the running state.
-     * Retrieves the PostgreSQL connection string.
+     * Retrieve the PostgreSQL connection string.
      */
     public async Task InitializeAsync()
     {
-        var resourceNotificationService = _app.Services.GetRequiredService<ResourceNotificationService>();
         await _app.StartAsync();
-
-        await resourceNotificationService.WaitForResourceAsync(_postgres.Resource.Name, KnownResourceStates.Running);
+        await _app.WaitForResourcesAsync();
         _postgresConnectionString = await _postgres.Resource.GetConnectionStringAsync();
+
+        // Ensure that the PostgreSQL database is fully initialized before proceeding.
+        // This is crucial, especially in CI/CD environments, to prevent tests from failing due to timing issues.
+        await Task.Delay(TimeSpan.FromSeconds(5));
     }
 }

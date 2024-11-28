@@ -1,5 +1,4 @@
 using Api.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 
 namespace Aspire.Tests.Extensions;

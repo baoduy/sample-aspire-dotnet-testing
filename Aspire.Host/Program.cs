@@ -6,6 +6,7 @@ var db = postgres.AddDatabase("Db");
 
 //Internal API
 builder.AddProject<Projects.Api>("api")
-    .WithReference(db);
+    .WithReference(db)
+    .WaitFor(db);
 
 builder.Build().Run();
