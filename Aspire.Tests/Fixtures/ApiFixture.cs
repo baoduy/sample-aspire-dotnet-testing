@@ -5,21 +5,6 @@ using Microsoft.Extensions.Hosting;
 
 namespace Aspire.Tests.Fixtures;
 
-/**
- * ApiFixture is a test fixture class that sets up the necessary environment for integration tests.
- * It extends WebApplicationFactory<Api.Program> and implements IAsyncLifetime to manage the lifecycle
- * of the test environment.
- *
- * This class is responsible for:
- * - Setting up a PostgreSQL server resource.
- * - Configuring the host with the necessary connection strings.
- * - Ensuring the database is created before tests run.
- * - Starting and stopping the application host.
- * - Cleaning up resources after tests are completed.
- *
- * Usage:
- * - This class is used as a fixture in xUnit tests to provide a consistent and isolated test environment.
- */
 public sealed class ApiFixture : WebApplicationFactory<Api.Program>, IAsyncLifetime
 {
     private readonly DistributedApplication _app;
@@ -39,7 +24,7 @@ public sealed class ApiFixture : WebApplicationFactory<Api.Program>, IAsyncLifet
         };
         var builder = DistributedApplication.CreateBuilder(options);
 
-        _postgres = builder.AddPostgres("postgres").PublishAsConnectionString();
+        _postgres = builder.AddPostgres("postgres");
         _app = builder.Build();
     }
 
@@ -61,9 +46,7 @@ public sealed class ApiFixture : WebApplicationFactory<Api.Program>, IAsyncLifet
             });
         });
 
-        var host = base.CreateHost(builder);
-        host.EnsureDbCreated().GetAwaiter().GetResult();
-        return host;
+       return base.CreateHost(builder);
     }
 
     /**
@@ -89,7 +72,8 @@ public sealed class ApiFixture : WebApplicationFactory<Api.Program>, IAsyncLifet
         _postgresConnectionString = await _postgres.Resource.GetConnectionStringAsync();
 
         // Ensure that the PostgreSQL database is fully initialized before proceeding.
+        //And Db migration is rant successfully.
         // This is crucial, especially in CI/CD environments, to prevent tests from failing due to timing issues.
-        await Task.Delay(TimeSpan.FromSeconds(5));
+        await Task.Delay(TimeSpan.FromSeconds(10));
     }
 }

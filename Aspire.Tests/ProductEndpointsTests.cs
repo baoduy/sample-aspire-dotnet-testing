@@ -6,16 +6,6 @@ using Xunit.Abstractions;
 
 namespace Aspire.Tests;
 
-/**
- * The ProductEndpointsTests class contains integration tests for the product endpoints.
- * It uses the ApiFixture to set up the test environment and HttpClient to make requests to the API.
- *
- * This class is responsible for:
- * - Testing the creation of a product.
- * - Testing the retrieval of a product.
- * - Testing the update of a product.
- * - Testing the deletion of a product.
- */
 public class ProductEndpointsTests(ApiFixture fixture, ITestOutputHelper output) : IClassFixture<ApiFixture>
 {
     private readonly HttpClient _client = fixture.CreateClient();

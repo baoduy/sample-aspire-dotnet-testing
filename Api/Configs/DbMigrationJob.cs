@@ -36,8 +36,7 @@ public class DbMigrationJob : IHostedService
         {
             // Apply any pending migrations to the database.
             // Note: For demo purposes, EnsureCreatedAsync is used. In production, MigrateAsync should be used instead.
-            await db.Database.MigrateAsync(cancellationToken: cancellationToken);
-
+            await db.Database.EnsureCreatedAsync(cancellationToken: cancellationToken);
             _logger.LogInformation("Database migration has been run successfully.");
         }
         catch (Exception ex)

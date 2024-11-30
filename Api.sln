@@ -8,6 +8,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Tests", "Aspire.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.Host", "Aspire.Host\Aspire.Host.csproj", "{07E17AA6-7D48-4645-88C8-01900408E6F7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipeline", "pipeline", "{107A0E89-0BAE-466E-9735-2D054C1201ED}"
+	ProjectSection(SolutionItems) = preProject
+		pipelines\no-filter.azure-pipelines.yml = pipelines\no-filter.azure-pipelines.yml
+		pipelines\with-filter.azure-pipelines.yml = pipelines\with-filter.azure-pipelines.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

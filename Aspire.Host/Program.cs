@@ -1,12 +1,13 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
 //Database
-var postgres = builder.AddPostgres("postgres").PublishAsConnectionString();
-var db = postgres.AddDatabase("Db");
+var postgres = builder
+    .AddPostgres("postgres")
+    .AddDatabase("Db");
 
 //Internal API
 builder.AddProject<Projects.Api>("api")
-    .WithReference(db)
-    .WaitFor(db);
+    .WithReference(postgres)
+    .WaitFor(postgres);
 
 builder.Build().Run();
